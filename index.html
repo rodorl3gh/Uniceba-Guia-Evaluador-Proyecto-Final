@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Guía de uso del Evaluador de Proyecto Final de UNICEBA para alumnos de Proceso Administrativo y Planeación Estratégica.">
+<title>Guía del Evaluador · Proyecto Final | UNICEBA</title>
+<style>
+:root{
+  --navy:#0A1F3F;
+  --navy-2:#152E54;
+  --gold:#C8963E;
+  --gold-soft:#E8D3A8;
+  --vanilla:#F5F0E6;
+  --white:#ffffff;
+  --gray-50:#f7f8fa;
+  --gray-100:#f0f1f3;
+  --gray-200:#e2e4e8;
+  --gray-300:#cdd0d5;
+  --gray-500:#6b7280;
+  --gray-700:#374151;
+  --gray-900:#111827;
+  --slate:#8a9bb0;
+  --muted-red:#b08a8a;
+  --shadow:0 1px 4px rgba(0,0,0,.05),0 0 0 1px rgba(0,0,0,.03);
+  --radius:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--gray-700);
+  background:var(--gray-50);
+  line-height:1.65;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  max-width:100%;
+}
+html{overflow-x:hidden}
+img,video{max-width:100%;height:auto}
+a{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:2px solid var(--gold);outline-offset:2px;border-radius:4px;
+}
+p,li,h1,h2,h3{overflow-wrap:break-word}
+
+/* ===== Progress ===== */
+.progress{
+  position:fixed;top:0;left:0;height:3px;width:0;
+  background:linear-gradient(90deg,var(--gold),#e0b96a);
+  z-index:200;
+}
+
+/* ===== Cover ===== */
+.cover{
+  min-height:100vh;min-height:100svh;
+  background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 55%,var(--navy) 100%);
+  color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  padding:3.5rem 1.4rem;
+  position:relative;overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;top:-30%;right:-12%;
+  width:min(700px,85vw);height:min(700px,85vw);border-radius:50%;
+  background:radial-gradient(circle,rgba(200,150,62,.10) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cover::after{
+  content:'';position:absolute;bottom:-35%;left:-18%;
+  width:min(520px,70vw);height:min(520px,70vw);border-radius:50%;
+  background:radial-gradient(circle,rgba(200,150,62,.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cover-inner{
+  position:relative;z-index:1;width:100%;max-width:780px;
+  display:flex;flex-direction:column;min-height:78vh;min-height:78svh;
+  text-align:center;
+}
+.cover-top{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;margin-bottom:auto;
+}
+.uni-mark{
+  font-size:.82rem;font-weight:700;letter-spacing:.55em;
+  color:var(--gold);text-transform:uppercase;
+}
+.cover-tag{
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  border:1px solid rgba(200,150,62,.35);
+  padding:.35rem .9rem;
+}
+.cover-main{margin:3rem 0}
+.eyebrow{
+  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:1.1rem;
+}
+.cover h1{
+  font-size:clamp(2rem,5.4vw,3.4rem);
+  line-height:1.08;font-weight:800;letter-spacing:-.02em;
+  margin-bottom:1rem;
+}
+.cover h1 span{color:var(--gold)}
+.cover-sub{
+  max-width:600px;margin:0 auto 1.8rem;
+  font-size:clamp(.92rem,2vw,1.05rem);
+  color:rgba(255,255,255,.72);line-height:1.6;
+}
+.cover-pills{
+  display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;
+  margin-bottom:2rem;
+}
+.cover-pills span{
+  font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold-soft);
+  border:1px solid rgba(200,150,62,.35);
+  background:rgba(255,255,255,.04);
+  padding:.45rem 1rem;border-radius:999px;
+}
+.cover-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.85rem 2rem;border-radius:999px;
+  background:var(--gold);color:var(--navy);
+  font-weight:800;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;transition:transform .2s,box-shadow .2s;
+}
+.cover-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,150,62,.28)}
+.cover-foot{
+  margin-top:auto;padding-top:2rem;border-top:1px solid rgba(255,255,255,.12);
+  display:flex;justify-content:space-between;gap:.6rem;flex-wrap:wrap;
+  font-size:.72rem;color:rgba(255,255,255,.5);
+}
+.cover-foot span:last-child{color:var(--gold-soft)}
+
+/* ===== Topbar ===== */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gray-200);
+}
+.topbar-inner{
+  max-width:980px;margin:0 auto;padding:.65rem 1.2rem;
+  display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;
+}
+.brand{
+  font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--navy);text-decoration:none;white-space:nowrap;
+}
+.navlinks{display:flex;gap:.35rem 1rem;flex-wrap:wrap;align-items:center}
+.navlinks a{
+  font-size:.74rem;color:var(--gray-500);text-decoration:none;
+  font-weight:600;letter-spacing:.02em;
+  padding:.2rem 0;border-bottom:2px solid transparent;
+  white-space:nowrap;
+}
+.navlinks a:hover{color:var(--navy);border-bottom-color:var(--gold)}
+
+/* ===== Layout ===== */
+.wrap{max-width:980px;margin:0 auto;padding:1.6rem 1.2rem 3rem}
+.section{
+  background:var(--white);border-radius:var(--radius);
+  padding:2.1rem 2rem;box-shadow:var(--shadow);
+  margin-bottom:1.5rem;scroll-margin-top:88px;
+}
+.kicker{
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);font-weight:800;margin-bottom:.45rem;
+}
+.section h2{
+  font-size:clamp(1.35rem,3vw,1.7rem);line-height:1.2;
+  color:var(--gray-900);font-weight:800;letter-spacing:-.01em;
+  margin-bottom:.45rem;
+}
+.lead{color:var(--gray-500);font-size:.95rem;max-width:74ch;margin-bottom:1.2rem}
+.section h3{
+  font-size:1.02rem;color:var(--navy);font-weight:700;
+  margin:1.4rem 0 .5rem;
+}
+.section h4{
+  font-size:.9rem;color:var(--navy);font-weight:700;margin:.9rem 0 .3rem;
+}
+.section p{margin-bottom:.75rem}
+.section ul,.section ol{padding-left:1.35rem;margin-bottom:.8rem}
+.section li{margin-bottom:.4rem;font-size:.9rem}
+.section li b{color:var(--navy)}
+
+/* ===== Index ===== */
+.index-section{background:linear-gradient(180deg,#fff 0%,#fbfaf7 100%)}
+.index-grid{
+  display:grid;gap:.7rem;
+  grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));
+  margin-top:1rem;
+}
+.index-card{
+  display:flex;gap:.8rem;align-items:flex-start;
+  padding:.85rem .9rem;border:1px solid var(--gray-200);
+  border-radius:12px;text-decoration:none;background:var(--white);
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+}
+.index-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 18px rgba(10,31,63,.06)}
+.index-num{
+  flex:0 0 30px;height:30px;border-radius:8px;background:var(--navy);
+  color:var(--white);font-weight:800;font-size:.78rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.index-card h4{font-size:.83rem;color:var(--navy);margin:0 0 .15rem;font-weight:700}
+.index-card p{font-size:.75rem;color:var(--gray-500);margin:0;line-height:1.45}
+
+/* ===== Callouts ===== */
+.hook{
+  background:var(--vanilla);border-left:4px solid var(--gold);
+  padding:.9rem 1.1rem;margin:.8rem 0 1.1rem;
+  font-size:.9rem;color:var(--navy);font-weight:600;font-style:italic;
+  border-radius:0 8px 8px 0;
+}
+.note{
+  background:rgba(10,31,63,.035);border-left:4px solid var(--navy);
+  padding:.8rem 1rem;margin:.9rem 0;font-size:.86rem;color:var(--navy);
+  border-radius:0 8px 8px 0;
+}
+.warn{
+  background:#fbf7f7;border-left:4px solid var(--muted-red);
+  padding:.8rem 1rem;margin:.9rem 0;font-size:.86rem;color:#6f3535;
+  border-radius:0 8px 8px 0;
+}
+.gold-box{
+  background:var(--vanilla);border:1px solid var(--gold-soft);
+  padding:1rem 1.1rem;margin:1rem 0;border-radius:10px;
+  font-size:.88rem;color:var(--navy);
+}
+.gold-box b{color:var(--navy)}
+
+/* ===== Grids / cards ===== */
+.grid{
+  display:grid;gap:.8rem;
+  grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));
+  margin:.9rem 0;
+}
+.mini{
+  background:var(--gray-50);border:1px solid var(--gray-200);
+  border-radius:12px;padding:.9rem 1rem;
+}
+.mini h4{font-size:.82rem;color:var(--navy);margin:0 0 .25rem;font-weight:700}
+.mini p{font-size:.8rem;color:var(--gray-500);margin:0;line-height:1.5}
+.mini .tag{
+  display:inline-block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);font-weight:800;margin-bottom:.25rem;
+}
+.fact{
+  display:flex;flex-direction:column;gap:.15rem;
+  background:var(--white);border:1px solid var(--gray-200);
+  border-top:3px solid var(--gold);border-radius:10px;
+  padding:.75rem .85rem;
+}
+.fact b{font-size:.8rem;color:var(--navy);font-weight:700}
+.fact span{font-size:.72rem;color:var(--gray-500);line-height:1.4}
+
+/* ===== Pills ===== */
+.pills{display:flex;gap:.45rem;flex-wrap:wrap;margin:.6rem 0}
+.pill{
+  font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--navy);background:var(--vanilla);
+  border:1px solid var(--gold-soft);border-radius:999px;
+  padding:.3rem .7rem;font-weight:700;
+}
+
+/* ===== Steps ===== */
+.steps{display:flex;flex-direction:column;gap:.85rem;margin:1rem 0}
+.step{
+  display:flex;gap:.9rem;align-items:flex-start;
+  background:var(--gray-50);border:1px solid var(--gray-200);
+  border-radius:12px;padding:1rem 1.05rem;
+}
+.step-num{
+  flex:0 0 34px;width:34px;height:34px;border-radius:9px;background:var(--navy);
+  color:var(--white);font-weight:800;font-size:.9rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.step-body{min-width:0}
+.step-body h4{font-size:.92rem;color:var(--navy);margin:0 0 .2rem;font-weight:700}
+.step-body p{font-size:.84rem;color:var(--gray-700);margin:0;line-height:1.55}
+.step-body .tip{
+  display:inline-block;margin-top:.4rem;font-size:.74rem;color:#8a6420;
+  background:var(--vanilla);border:1px solid var(--gold-soft);
+  border-radius:999px;padding:.2rem .65rem;font-weight:600;
+}
+
+/* ===== Screenshots ===== */
+.shot{margin:1.1rem 0}
+.shot img{
+  display:block;width:100%;border-radius:12px;
+  border:1px solid var(--gray-200);
+  box-shadow:0 10px 30px rgba(10,31,63,.10);
+}
+.shot figcaption{
+  font-size:.74rem;color:var(--gray-500);margin-top:.45rem;
+  line-height:1.45;font-style:italic;
+}
+.shot-row{
+  display:grid;gap:.9rem;
+  grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
+  margin:1.1rem 0;
+}
+.shot-row .shot{margin:0}
+
+/* ===== Section map ===== */
+.map{
+  display:grid;gap:.5rem;
+  grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
+  margin:.8rem 0;
+}
+.map-row{
+  display:flex;gap:.6rem;align-items:flex-start;
+  background:var(--gray-50);border:1px solid var(--gray-200);
+  border-radius:9px;padding:.55rem .65rem;
+}
+.map-row .m-num{
+  flex:0 0 24px;height:24px;border-radius:6px;background:var(--navy);
+  color:var(--white);font-size:.68rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.map-row p{font-size:.76rem;color:var(--gray-700);margin:0;line-height:1.4}
+.map-row p b{color:var(--navy)}
+
+/* ===== Levels ===== */
+.rubric-card{
+  border:1px solid var(--gray-200);border-radius:12px;
+  margin:1rem 0;overflow:hidden;background:var(--white);
+}
+.rubric-head{
+  display:flex;gap:.7rem;align-items:flex-start;
+  padding:.8rem .9rem;background:var(--gray-50);
+  border-bottom:1px solid var(--gray-200);
+}
+.rubric-num{
+  flex:0 0 30px;height:30px;border-radius:8px;background:var(--navy);
+  color:var(--white);font-weight:800;font-size:.78rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.rubric-head h4{font-size:.86rem;color:var(--navy);margin:0;font-weight:700;line-height:1.3}
+.rubric-head p{font-size:.75rem;color:var(--gray-500);margin:.15rem 0 0;line-height:1.4}
+.levels{display:flex;flex-direction:column}
+.level{
+  padding:.6rem .9rem;border-left:4px solid var(--gray-300);
+  border-bottom:1px solid var(--gray-100);
+}
+.level:last-child{border-bottom:none}
+.level .lv{
+  display:block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:800;margin-bottom:.1rem;
+}
+.level p{font-size:.83rem;margin:0;line-height:1.5;color:var(--gray-700)}
+.level.l3{background:var(--vanilla);border-left-color:var(--gold)}
+.level.l3 .lv{color:#8a6420}
+.level.l2{background:var(--gray-50);border-left-color:var(--slate)}
+.level.l2 .lv{color:#4b5a6b}
+.level.l1{background:#fbf7f7;border-left-color:var(--muted-red)}
+.level.l1 .lv{color:#7a3b3b}
+
+/* ===== Checklist ===== */
+.checklist{display:flex;flex-direction:column;gap:.1rem;margin:.7rem 0}
+.check{
+  display:flex;gap:.65rem;align-items:flex-start;
+  padding:.5rem .2rem;border-bottom:1px solid var(--gray-100);
+  cursor:pointer;font-size:.84rem;line-height:1.45;
+}
+.check:last-child{border-bottom:none}
+.check input{
+  flex:0 0 auto;width:17px;height:17px;margin-top:.18rem;
+  accent-color:var(--navy);cursor:pointer;
+}
+.check span{color:var(--gray-700);transition:color .2s}
+.check input:checked + span{color:var(--gray-300);text-decoration:line-through}
+
+/* ===== FAQ ===== */
+.faq{border:1px solid var(--gray-200);border-radius:12px;overflow:hidden;margin:1rem 0}
+.faq details{border-bottom:1px solid var(--gray-100);background:var(--white)}
+.faq details:last-child{border-bottom:none}
+.faq summary{
+  list-style:none;cursor:pointer;padding:.8rem 1rem;
+  font-size:.86rem;font-weight:700;color:var(--navy);
+  display:flex;justify-content:space-between;gap:.6rem;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';color:var(--gold);font-weight:800}
+.faq details[open] summary::after{content:'–'}
+.faq details p{font-size:.82rem;color:var(--gray-500);padding:0 1rem .9rem;margin:0;line-height:1.55}
+
+/* ===== CTA ===== */
+.cta{
+  background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
+  color:var(--white);border-radius:16px;padding:2rem 1.6rem;
+  text-align:center;margin:1.4rem 0 0;
+}
+.cta h3{color:var(--white);font-size:1.2rem;margin:0 0 .5rem}
+.cta p{color:rgba(255,255,255,.72);font-size:.86rem;max-width:56ch;margin:0 auto 1.2rem}
+.cta .cover-btn{background:var(--gold);color:var(--navy)}
+
+/* ===== Footer / top ===== */
+.footer{
+  text-align:center;padding:1.2rem 1.2rem 2rem;
+  font-size:.72rem;color:var(--gray-500);font-style:italic;
+  border-top:1px solid var(--gray-200);max-width:980px;margin:0 auto;
+}
+.to-top{
+  position:fixed;right:1.1rem;bottom:1.1rem;z-index:150;
+  width:44px;height:44px;border-radius:50%;border:none;
+  background:var(--navy);color:var(--white);font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:0 8px 22px rgba(10,31,63,.22);
+  opacity:0;pointer-events:none;transform:translateY(8px);
+  transition:opacity .25s,transform .25s;
+}
+.to-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.to-top:hover{background:var(--navy-2)}
+
+/* ===== Responsive ===== */
+@media(max-width:720px){
+  html{scroll-padding-top:16px}
+  .topbar{position:static}
+  .cover{padding:2.6rem 1.1rem}
+  .cover-main{margin:2rem 0}
+  .cover-top{justify-content:center}
+  .cover-foot{justify-content:center;text-align:center}
+  .wrap{padding:1.1rem .75rem 2.2rem}
+  .section{padding:1.35rem 1.05rem;border-radius:13px;margin-bottom:1.1rem;scroll-margin-top:16px}
+  .section h2{font-size:1.3rem}
+  .lead{font-size:.88rem}
+  .section li{font-size:.85rem}
+  .topbar-inner{padding:.55rem .75rem}
+  .navlinks{gap:.25rem .7rem}
+  .navlinks a{font-size:.7rem}
+  .rubric-head{flex-wrap:wrap}
+  .cover-pills span{font-size:.62rem;padding:.35rem .75rem}
+  .step{flex-direction:column;gap:.6rem}
+  .shot-row{grid-template-columns:1fr}
+}
+@media(max-width:420px){
+  body{font-size:15px}
+  .cover h1{font-size:1.85rem}
+  .cover-sub{font-size:.85rem}
+  .brand{font-size:.7rem}
+  .navlinks a{font-size:.66rem}
+}
+
+@media print{
+  .topbar,.progress,.to-top,.cover-btn{display:none!important}
+  body{background:#fff;font-size:11pt}
+  .cover{min-height:auto;padding:2.5rem 1.5rem;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .wrap{max-width:100%;padding:0}
+  .section{box-shadow:none;border:1px solid #ddd;page-break-inside:avoid;margin-bottom:1rem}
+  .index-card,.mini,.t-item,.rubric-card,.step,.shot{page-break-inside:avoid}
+  .shot img{box-shadow:none}
+  a{text-decoration:none;color:inherit}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ===== COVER ===== -->
+<header class="cover">
+  <div class="cover-inner">
+    <div class="cover-top">
+      <div class="uni-mark">UNICEBA</div>
+      <div class="cover-tag">Herramienta · 2026</div>
+    </div>
+
+    <div class="cover-main">
+      <div class="eyebrow">Proceso Administrativo · Planeación Estratégica</div>
+      <h1>Evalúa tu proyecto<br><span>antes de entregarlo</span></h1>
+      <p class="cover-sub">Guía paso a paso del Evaluador de Proyecto Final: sube tu PDF, revisa los 5 criterios de la rúbrica y corrige tu documento antes de la entrega.</p>
+      <div class="cover-pills">
+        <span>5 análisis por día</span>
+        <span>PDF · máx. 20 MB</span>
+        <span>Sin registro</span>
+      </div>
+      <a class="cover-btn" href="#indice">Comenzar</a>
+    </div>
+
+    <div class="cover-foot">
+      <span>Licenciatura en Negocios Internacionales</span>
+      <span>Julio · Diciembre 2026</span>
+      <span>Ing. Rodolfo Ramírez López</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== TOPBAR ===== -->
+<nav class="topbar" aria-label="Navegación de la guía">
+  <div class="topbar-inner">
+    <a class="brand" href="#indice">Evaluador</a>
+    <div class="navlinks">
+      <a href="#que-es">Qué es</a>
+      <a href="#antes">Antes de empezar</a>
+      <a href="#paso">Paso a paso</a>
+      <a href="#reporte">Tu reporte</a>
+      <a href="#interpretar">Cómo leerlo</a>
+      <a href="#consejos">Consejos</a>
+      <a href="#faq">Preguntas</a>
+      <a href="#checklist">Checklist</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ===== ÍNDICE ===== -->
+  <section class="section index-section" id="indice">
+    <div class="kicker">Índice</div>
+    <h2>Tu ruta en esta guía</h2>
+    <p class="lead">La herramienta evalúa el documento que ya escribiste, con la misma rúbrica de tu materia. Úsala para detectar errores antes de subir tu PDF a Classroom.</p>
+
+    <div class="index-grid">
+      <a class="index-card" href="#que-es"><span class="index-num">1</span><div><h4>Qué es y para qué sirve</h4><p>Qué evalúa, qué no evalúa y por qué te conviene usarla.</p></div></a>
+      <a class="index-card" href="#antes"><span class="index-num">2</span><div><h4>Antes de empezar</h4><p>Requisitos del PDF, límite de análisis y privacidad.</p></div></a>
+      <a class="index-card" href="#paso"><span class="index-num">3</span><div><h4>Paso a paso</h4><p>Cómo entrar, subir tu archivo y analizarlo.</p></div></a>
+      <a class="index-card" href="#reporte"><span class="index-num">4</span><div><h4>Tu reporte</h4><p>Qué significa cada parte del resultado.</p></div></a>
+      <a class="index-card" href="#interpretar"><span class="index-num">5</span><div><h4>Cómo interpretarlo</h4><p>Niveles, puntaje y relación con tu calificación.</p></div></a>
+      <a class="index-card" href="#consejos"><span class="index-num">6</span><div><h4>Consejos</h4><p>Cómo aprovechar mejor la herramienta.</p></div></a>
+      <a class="index-card" href="#faq"><span class="index-num">7</span><div><h4>Preguntas frecuentes</h4><p>Dudas comunes y qué hacer si algo falla.</p></div></a>
+      <a class="index-card" href="#checklist"><span class="index-num">8</span><div><h4>Checklist final</h4><p>Lo que debes revisar antes de entregar.</p></div></a>
+    </div>
+
+    <div class="gold-box"><b>Regla de oro:</b> la herramienta no entrega tu trabajo ni inventa contenido. Solo te dice qué tan bien está tu documento frente a la rúbrica y qué corregir.</div>
+  </section>
+
+  <!-- ===== 1. QUÉ ES ===== -->
+  <section class="section" id="que-es">
+    <div class="kicker">01 · Qué es</div>
+    <h2>Un espejo de tu documento</h2>
+    <p class="lead">El Evaluador de Proyecto Final es una herramienta web de UNICEBA que lee tu PDF y lo califica con los 5 criterios de la rúbrica de tu materia. Funciona para Proceso Administrativo y para Planeación Estratégica.</p>
+
+    <div class="shot">
+      <img src="img/01-inicio.png" alt="Pantalla de inicio del Evaluador con las tarjetas de Proceso Administrativo y Planeación Estratégica." loading="lazy">
+      <figcaption>Pantalla de inicio: elige la tarjeta de tu materia para entrar como alumno.</figcaption>
+    </div>
+
+    <div class="grid">
+      <div class="mini">
+        <span class="tag">Lo que sí hace</span>
+        <h4>Evalúa tu PDF</h4>
+        <p>Lee el texto de tu documento, asigna un nivel a cada criterio y te da fortalezas, áreas de mejora y recomendaciones concretas.</p>
+      </div>
+      <div class="mini">
+        <span class="tag">Lo que no hace</span>
+        <h4>No es tu calificación oficial</h4>
+        <p>Es una revisión previa con IA. Tu profesor evalúa el documento y la exposición con la rúbrica oficial.</p>
+      </div>
+      <div class="mini">
+        <span class="tag">Para quién</span>
+        <h4>Solo alumnos</h4>
+        <p>La entrada de alumno es pública, sin usuario ni contraseña. Cada materia tiene su propia rúbrica y criterios.</p>
+      </div>
+      <div class="mini">
+        <span class="tag">Cuándo usarla</span>
+        <h4>Antes de entregar</h4>
+        <p>Úsala cuando tengas una versión avanzada de tu documento, no en la primera página. Su valor está en detectar lo que falta.</p>
+      </div>
+    </div>
+
+    <h3>Los 5 criterios de cada materia</h3>
+    <div class="grid">
+      <div class="mini" style="border-top:3px solid var(--gold)">
+        <h4>Proceso Administrativo</h4>
+        <p>
+          <b>1.</b> Integración y coherencia (Avance 1, FODA y Porter)<br>
+          <b>2.</b> Estrategia y organización<br>
+          <b>3.</b> Uso de IA<br>
+          <b>4.</b> Control y mejora<br>
+          <b>5.</b> Internacionalización
+        </p>
+      </div>
+      <div class="mini" style="border-top:3px solid var(--gold)">
+        <h4>Planeación Estratégica</h4>
+        <p>
+          <b>1.</b> Diagnóstico externo e interno (PESTEL, Porter, FODA y VRIO)<br>
+          <b>2.</b> Modelo de negocio y propuesta de valor<br>
+          <b>3.</b> Estrategia y objetivos<br>
+          <b>4.</b> Plan de implementación<br>
+          <b>5.</b> Evaluación, control y cultura
+        </p>
+      </div>
+    </div>
+
+    <div class="note"><b>Importante:</b> en Proceso Administrativo el criterio 3 mide el uso estimado de IA. En Planeación Estratégica no se califica el uso de IA; los 5 criterios corresponden al plan estratégico.</div>
+
+    <div class="hook">Si la herramienta te dice que falta algo, no significa que tu trabajo esté mal: significa que todavía puedes mejorarlo antes de la entrega.</div>
+  </section>
+
+  <!-- ===== 2. ANTES DE EMPEZAR ===== -->
+  <section class="section" id="antes">
+    <div class="kicker">02 · Antes de empezar</div>
+    <h2>Lo que necesitas tener listo</h2>
+    <p class="lead">El análisis funciona mejor con un PDF limpio y con texto seleccionable. Revisa estos puntos antes de subir tu archivo.</p>
+
+    <div class="grid">
+      <div class="fact"><b>Formato</b><span>Solo PDF.</span></div>
+      <div class="fact"><b>Tamaño</b><span>Máximo 20 MB.</span></div>
+      <div class="fact"><b>Texto</b><span>Seleccionable, no escaneado como imagen.</span></div>
+      <div class="fact"><b>Páginas</b><span>Hasta 25 en PA y hasta 35 en PE.</span></div>
+      <div class="fact"><b>Límite</b><span>5 análisis por día por dispositivo.</span></div>
+      <div class="fact"><b>Registro</b><span>No necesitas crear cuenta.</span></div>
+    </div>
+
+    <h3>Cómo saber si tu PDF tiene texto seleccionable</h3>
+    <ul>
+      <li>Abre el PDF y arrastra el cursor sobre un párrafo: si el texto se sombrea, sí es seleccionable.</li>
+      <li>Si todo el documento es una imagen o una foto, la herramienta no podrá leerlo. Exporta de nuevo desde Word, Google Docs o Canva.</li>
+      <li>Si tu documento tiene imágenes o tablas, no pasa nada: la herramienta trabaja con el texto que puede leer.</li>
+    </ul>
+
+    <h3>Privacidad</h3>
+    <div class="note">Tu PDF se procesa en tu navegador. Solo el texto se envía al modelo para el análisis y <b>no se almacena</b>. El contador de uso guarda únicamente un identificador del dispositivo y la fecha, para respetar el límite diario.</div>
+
+    <div class="warn"><b>No subas datos personales sensibles</b> que no formen parte del trabajo académico. Usa la versión del documento que vas a entregar, con tus datos escolares normales.</div>
+
+    <div class="pills">
+      <span class="pill">PDF</span>
+      <span class="pill">Texto seleccionable</span>
+      <span class="pill">Máx. 20 MB</span>
+      <span class="pill">5 al día</span>
+      <span class="pill">Sin registro</span>
+    </div>
+  </section>
+
+  <!-- ===== 3. PASO A PASO ===== -->
+  <section class="section" id="paso">
+    <div class="kicker">03 · Paso a paso</div>
+    <h2>De tu PDF al reporte en 5 pasos</h2>
+    <p class="lead">Todo el proceso toma entre 10 y 30 segundos de análisis. Sigue el orden y no cierres la pestaña mientras el evaluador trabaja.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Abre la herramienta y elige tu materia</h4>
+          <p>Entra al enlace del evaluador y selecciona la tarjeta de <b>Proceso Administrativo</b> o <b>Planeación Estratégica</b>, según la materia de tu proyecto.</p>
+          <span class="tip">Elige bien: la rúbrica cambia según la materia.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Sube tu PDF</h4>
+          <p>Arrastra el archivo a la zona de carga o pulsa <b>“selecciona un archivo”</b>. Verifica que aparezca el nombre correcto y el tamaño del documento.</p>
+          <span class="tip">Si te equivocaste, pulsa la × para quitarlo y sube otro.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Pulsa “Analizar proyecto”</h4>
+          <p>El botón se activa cuando el archivo está cargado. La herramienta extrae el texto en tu navegador y lo envía al modelo para evaluarlo con la rúbrica.</p>
+          <span class="tip">No cierres ni recargues la pestaña durante el análisis.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Espera el reporte</h4>
+          <p>Verás una barra de progreso con las etapas: leer archivo, extraer texto, evaluar criterios, analizar evidencias y generar reporte. Tarda entre 10 y 30 segundos.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Lee, corrige y vuelve a analizar</h4>
+          <p>Revisa el puntaje, los 5 criterios, tus fortalezas, tus áreas de mejora y las recomendaciones. Corrige el documento y, si te quedan análisis del día, vuelve a subirlo para comprobar la mejora.</p>
+          <span class="tip">Puedes copiar el reporte con el botón “Copiar reporte”.</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Paso 1 y 2 en pantalla</h3>
+    <div class="shot-row">
+      <figure class="shot">
+        <img src="img/02-pa-subir.png" alt="Vista de alumno de Proceso Administrativo con la zona para arrastrar el PDF y la rúbrica de 5 criterios." loading="lazy">
+        <figcaption>Vista de alumno de Proceso Administrativo. La columna derecha muestra los 5 criterios que se evalúan.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="img/09-pe-subir.png" alt="Vista de alumno de Planeación Estratégica con la zona de carga y los criterios del plan estratégico." loading="lazy">
+        <figcaption>Vista de alumno de Planeación Estratégica. Los criterios corresponden al plan estratégico.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Tu archivo cargado</h3>
+    <div class="shot-row">
+      <figure class="shot">
+        <img src="img/03-pa-pdf-listo.png" alt="Archivo PDF cargado en el evaluador de Proceso Administrativo con el botón Analizar proyecto activo." loading="lazy">
+        <figcaption>Cuando el PDF está listo, se muestra el nombre del archivo, su tamaño y el botón <b>Analizar proyecto</b> en color.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="img/10-pe-pdf-listo.png" alt="Archivo PDF cargado en el evaluador de Planeación Estratégica con el botón Analizar proyecto activo." loading="lazy">
+        <figcaption>El mismo paso en Planeación Estratégica. Revisa que el archivo sea la versión correcta antes de analizar.</figcaption>
+      </figure>
+    </div>
+
+    <h3>El análisis en curso</h3>
+    <div class="shot">
+      <img src="img/04-pa-analizando.png" alt="Ventana de progreso del evaluador mostrando el porcentaje y las etapas del análisis." loading="lazy">
+      <figcaption>Pantalla de progreso. No cierres la pestaña: el análisis se completa solo y después aparece el reporte.</figcaption>
+    </div>
+
+    <div class="warn"><b>Si el análisis tarda más de lo normal o se corta la conexión,</b> espera unos segundos y vuelve a intentarlo. Cada intento cuenta dentro de tus 5 análisis del día.</div>
+  </section>
+
+  <!-- ===== 4. TU REPORTE ===== -->
+  <section class="section" id="reporte">
+    <div class="kicker">04 · Tu reporte</div>
+    <h2>Qué vas a ver al terminar</h2>
+    <p class="lead">El reporte tiene seis partes. Léelo de arriba hacia abajo: primero el resultado general y después el detalle de cada criterio.</p>
+
+    <div class="map">
+      <div class="map-row"><span class="m-num">1</span><p><b>Resultado del documento</b><br>Puntaje total sobre 15, resumen del análisis y cuánto aporta a tu nota (sobre 60).</p></div>
+      <div class="map-row"><span class="m-num">2</span><p><b>Uso de IA</b> (solo PA)<br>Porcentaje estimado de contenido generado por IA y las señales que lo sustentan.</p></div>
+      <div class="map-row"><span class="m-num">3</span><p><b>Los 5 criterios</b><br>Nivel de cada criterio (1, 2 o 3) con tres bloques: por qué, evidencia y cómo mejorar.</p></div>
+      <div class="map-row"><span class="m-num">4</span><p><b>Fortalezas</b><br>Lo que ya está bien y conviene conservar en la versión final.</p></div>
+      <div class="map-row"><span class="m-num">5</span><p><b>Áreas de mejora y recomendaciones</b><br>Lo que falta y las acciones concretas para corregirlo.</p></div>
+      <div class="map-row"><span class="m-num">6</span><p><b>Siguiente paso</b><br>El recordatorio de qué revisar antes de volver a analizar o entregar.</p></div>
+    </div>
+
+    <h3>Resultado general</h3>
+    <div class="shot">
+      <img src="img/05-pa-resultado.png" alt="Reporte del evaluador con el puntaje total sobre 15, el resumen del documento y la estimación de uso de IA." loading="lazy">
+      <figcaption>Arriba ves el puntaje sobre 15 y el resumen. En Proceso Administrativo también aparece la estimación de uso de IA.</figcaption>
+    </div>
+
+    <h3>El detalle de cada criterio</h3>
+    <div class="shot">
+      <img src="img/06-pa-criterios.png" alt="Tarjetas de criterios del reporte con los bloques Por qué, Evidencia y Cómo mejorar." loading="lazy">
+      <figcaption>Cada criterio muestra el nivel asignado y tres bloques: <b>Por qué</b>, <b>Evidencia</b> y <b>Cómo mejorar</b>. El tercer bloque es el más útil para corregir.</figcaption>
+    </div>
+
+    <h3>Fortalezas, áreas de mejora y recomendaciones</h3>
+    <div class="shot">
+      <img src="img/07-pa-fortalezas.png" alt="Sección final del reporte con las fortalezas, áreas de mejora, recomendaciones y siguiente paso." loading="lazy">
+      <figcaption>Al final del reporte están las tres listas de acción y el siguiente paso. Usa las recomendaciones como plan de corrección.</figcaption>
+    </div>
+
+    <h3>El mismo reporte en Planeación Estratégica</h3>
+    <div class="shot-row">
+      <figure class="shot">
+        <img src="img/12-pe-resultado.png" alt="Reporte del evaluador de Planeación Estratégica con el puntaje sobre 15 y el desglose de los 5 criterios." loading="lazy">
+        <figcaption>En Planeación Estratégica el reporte sigue la rúbrica del Trabajo Final, Parte 1 y no incluye el criterio de uso de IA.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="img/13-pe-criterios.png" alt="Tarjetas de criterios del reporte de Planeación Estratégica con nivel, evidencia y cómo mejorar." loading="lazy">
+        <figcaption>El detalle de los criterios funciona igual: nivel, por qué, evidencia y cómo mejorar.</figcaption>
+      </figure>
+    </div>
+
+    <div class="note"><b>Botones del reporte:</b> <b>Copiar reporte</b> copia el análisis en texto para que lo guardes o lo compartas; <b>Analizar otro PDF</b> te permite subir una nueva versión.</div>
+  </section>
+
+  <!-- ===== 5. CÓMO INTERPRETAR ===== -->
+  <section class="section" id="interpretar">
+    <div class="kicker">05 · Cómo interpretarlo</div>
+    <h2>Niveles, puntaje y calificación</h2>
+    <p class="lead">Cada criterio vale 3 puntos y se califica con un solo nivel. Los cinco criterios suman 15 puntos, que equivalen al 60% de la calificación de la actividad.</p>
+
+    <div class="rubric-card">
+      <div class="rubric-head">
+        <span class="rubric-num">3</span>
+        <div><h4>Nivel 3 · Óptimo</h4><p>Cumple completamente lo que pide el criterio.</p></div>
+      </div>
+      <div class="levels">
+        <div class="level l3"><span class="lv">Qué significa</span><p>El documento integra todos los elementos, aporta evidencia, cifras y decisiones propias. Es el nivel que debes buscar antes de entregar.</p></div>
+      </div>
+    </div>
+
+    <div class="rubric-card">
+      <div class="rubric-head">
+        <span class="rubric-num">2</span>
+        <div><h4>Nivel 2 · Aceptable</h4><p>Cumple la mayor parte, pero omite elementos o presenta incoherencias menores.</p></div>
+      </div>
+      <div class="levels">
+        <div class="level l2"><span class="lv">Qué significa</span><p>Hay una base correcta, pero falta precisión, evidencia o conexión entre las partes. Corrige lo que señala el reporte.</p></div>
+      </div>
+    </div>
+
+    <div class="rubric-card">
+      <div class="rubric-head">
+        <span class="rubric-num">1</span>
+        <div><h4>Nivel 1 · Insuficiente</h4><p>No cumple el criterio o solo lo menciona de forma general.</p></div>
+      </div>
+      <div class="levels">
+        <div class="level l1"><span class="lv">Qué significa</span><p>Falta el contenido, es genérico o no se conecta con tu proyecto. Es la señal más clara de qué debes reescribir.</p></div>
+      </div>
+    </div>
+
+    <div class="gold-box">
+      <b>El puntaje sobre 15 no es tu calificación final.</b> El documento vale 60% y la exposición 40%. La fórmula oficial es:<br><br>
+      <b>(Puntaje del PDF ÷ 15 × 60) + (Puntaje de la exposición ÷ 15 × 40)</b><br><br>
+      La herramienta solo evalúa el documento. La exposición la califica tu profesor con su propia rúbrica.
+    </div>
+
+    <h3>Qué significa el porcentaje de uso de IA (solo PA)</h3>
+    <ul>
+      <li><b>Menos de 80%:</b> nivel 3. El texto conserva voz propia y datos del proyecto.</li>
+      <li><b>Entre 80% y 90%:</b> nivel 2. Hay mucha presencia de IA, aunque con adaptación.</li>
+      <li><b>Más de 90%:</b> nivel 1. El texto parece predominantemente generado por IA.</li>
+    </ul>
+    <div class="note">La estimación es formativa y no cuenta portada ni referencias. No es una prueba definitiva: úsala para revisar si tu texto suena genérico y agregar ejemplos, cifras y decisiones propias.</div>
+
+    <div class="hook">Un 15/15 no garantiza la calificación final; un 8/15 bien corregido puede subir mucho antes de la entrega. Lo importante es qué haces con el reporte.</div>
+  </section>
+
+  <!-- ===== 6. CONSEJOS ===== -->
+  <section class="section" id="consejos">
+    <div class="kicker">06 · Consejos</div>
+    <h2>Cómo sacarle el máximo provecho</h2>
+    <p class="lead">La herramienta es más útil cuando la usas como una revisión, no como un trámite de último minuto.</p>
+
+    <div class="grid">
+      <div class="mini">
+        <span class="tag">Antes de subir</span>
+        <h4>Ten una versión avanzada</h4>
+        <p>Si tu documento está a medias, el reporte solo dirá que falta casi todo. Úsala cuando ya tengas los apartados completos.</p>
+      </div>
+      <div class="mini">
+        <span class="tag">Al leer</span>
+        <h4>Empieza por “Cómo mejorar”</h4>
+        <p>Ese bloque te dice exactamente qué cambiar. Las fortalezas te ayudan a no borrar lo que ya funciona.</p>
+      </div>
+      <div class="mini">
+        <span class="tag">Al corregir</span>
+        <h4>Atiende los niveles 1</h4>
+        <p>Corrige primero los criterios con nivel 1: son los que más puntos te quitan y los más fáciles de detectar.</p>
+      </div>
+      <div class="mini">
+        <span class="tag">Al volver a subir</span>
+        <h4>Compara los puntajes</h4>
+        <p>Guarda el reporte anterior y compara. Si un criterio no subió, revisa si realmente corregiste lo que el reporte pedía.</p>
+      </div>
+      <div class="mini">
+        <span class="tag">Con el tiempo</span>
+        <h4>No lo dejes para el final</h4>
+        <p>Tienes 5 análisis al día. Si esperas a la última hora, puedes quedarte sin oportunidades para comprobar tus correcciones.</p>
+      </div>
+      <div class="mini">
+        <span class="tag">Con la IA</span>
+        <h4>Escribe con tu voz</h4>
+        <p>La IA puede ayudarte a ordenar ideas, pero el texto debe tener tus datos, tus decisiones y tus ejemplos. Eso también mejora tu criterio de uso de IA.</p>
+      </div>
+    </div>
+
+    <div class="note"><b>Tip de revisión:</b> después de corregir, vuelve a leer tu documento en voz alta. Si una frase podría estar en cualquier otro proyecto, todavía es demasiado genérica.</div>
+  </section>
+
+  <!-- ===== 7. FAQ ===== -->
+  <section class="section" id="faq">
+    <div class="kicker">07 · Preguntas frecuentes</div>
+    <h2>Dudas comunes</h2>
+    <p class="lead">Si tu pregunta no está aquí, revisa primero los requisitos del PDF y vuelve a intentar el análisis.</p>
+
+    <div class="faq">
+      <details>
+        <summary>¿El resultado de la herramienta es mi calificación oficial?</summary>
+        <p>No. Es una evaluación previa con IA para que mejores tu documento. La calificación oficial la asigna tu profesor con la rúbrica del proyecto y la exposición.</p>
+      </details>
+      <details>
+        <summary>¿Cuántas veces puedo analizar mi documento?</summary>
+        <p>Cinco análisis por día por dispositivo. El contador aparece arriba, junto al botón de inicio. Si llegas al límite, espera al día siguiente.</p>
+      </details>
+      <details>
+        <summary>¿Puedo subir un PDF escaneado o una foto?</summary>
+        <p>No funciona bien. La herramienta necesita texto seleccionable. Si tu archivo es una imagen, expórtalo de nuevo desde Word, Google Docs o Canva como PDF.</p>
+      </details>
+      <details>
+        <summary>¿Se guarda mi documento?</summary>
+        <p>No. El PDF se procesa en tu navegador y solo el texto se envía al modelo para el análisis. No se almacena el archivo ni el contenido.</p>
+      </details>
+      <details>
+        <summary>¿Por qué el puntaje no coincide con lo que esperaba?</summary>
+        <p>La IA evalúa el texto que puede leer y aplica la rúbrica. Si un apartado está incompleto, genérico o sin evidencia, lo marca. Revisa el bloque “Evidencia” de cada criterio para entender la decisión.</p>
+      </details>
+      <details>
+        <summary>¿La herramienta evalúa también mi exposición?</summary>
+        <p>No. Solo evalúa el documento. La exposición se califica aparte, con la rúbrica de exposición de tu materia.</p>
+      </details>
+      <details>
+        <summary>Me equivoqué de materia al entrar, ¿qué hago?</summary>
+        <p>Pulsa <b>Cambiar perfil</b> y elige la otra tarjeta. La rúbrica y los criterios cambian según la materia, así que verifica que sea la correcta antes de analizar.</p>
+      </details>
+      <details>
+        <summary>El análisis se quedó cargando o se cortó, ¿qué hago?</summary>
+        <p>Espera unos segundos y vuelve a pulsar <b>Analizar proyecto</b>. Si el problema continúa, recarga la página, vuelve a subir el PDF y prueba de nuevo. Cada intento cuenta dentro del límite diario.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== 8. CHECKLIST ===== -->
+  <section class="section" id="checklist">
+    <div class="kicker">08 · Checklist final</div>
+    <h2>Antes de entregar</h2>
+    <p class="lead">Marca cada punto. Si algo queda sin marcar, todavía tienes una oportunidad para corregirlo.</p>
+
+    <div class="checklist">
+      <label class="check"><input type="checkbox"><span>Mi PDF tiene texto seleccionable y pesa menos de 20 MB.</span></label>
+      <label class="check"><input type="checkbox"><span>Entré a la tarjeta de la materia correcta (PA o PE).</span></label>
+      <label class="check"><input type="checkbox"><span>Subí la versión más reciente de mi documento, no un borrador viejo.</span></label>
+      <label class="check"><input type="checkbox"><span>Leí el puntaje general y el detalle de los 5 criterios.</span></label>
+      <label class="check"><input type="checkbox"><span>Corregí primero los criterios con nivel 1.</span></label>
+      <label class="check"><input type="checkbox"><span>Atendí las recomendaciones y las áreas de mejora.</span></label>
+      <label class="check"><input type="checkbox"><span>En PA, revisé la estimación de uso de IA y agregué ejemplos, cifras y decisiones propias.</span></label>
+      <label class="check"><input type="checkbox"><span>Volví a analizar el documento después de corregir (si me quedaban análisis del día).</span></label>
+      <label class="check"><input type="checkbox"><span>Guardé o copié el reporte para comparar antes de la entrega.</span></label>
+      <label class="check"><input type="checkbox"><span>Mi archivo final se llama como pide la asignación (PA_Final_... o PE_Final_...).</span></label>
+      <label class="check"><input type="checkbox"><span>Ya subí el PDF final a Classroom antes de la fecha y hora límite.</span></label>
+    </div>
+
+    <div class="cta">
+      <h3>¿Listo para revisar tu documento?</h3>
+      <p>Abre el evaluador, elige tu materia y sube tu PDF. Recuerda que el enlace de la herramienta está publicado en la asignación de Classroom.</p>
+      <a class="cover-btn" href="https://uniceba-evaluador.pages.dev" target="_blank" rel="noopener">Abrir el evaluador</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  UNICEBA · Licenciatura en Negocios Internacionales · Proceso Administrativo y Planeación Estratégica · Ing. Rodolfo Ramírez
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Volver arriba">↑</button>
+
+<script>
+(function(){
+  var progress = document.getElementById('progress');
+  var toTop = document.getElementById('toTop');
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+    progress.style.width = pct + '%';
+    if(doc.scrollTop > 600){ toTop.classList.add('show'); }
+    else { toTop.classList.remove('show'); }
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  toTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+</script>
+</body>
+</html>
